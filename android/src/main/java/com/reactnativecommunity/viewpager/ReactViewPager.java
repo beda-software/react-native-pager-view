@@ -144,6 +144,8 @@ public class ReactViewPager extends VerticalViewPager {
   private final EventDispatcher mEventDispatcher;
   private boolean mIsCurrentItemFromJs;
   private boolean mScrollEnabled = true;
+  private boolean mInitialPageWasSet = false;
+  private int mInitialPage = 0;
 
   public ReactViewPager(ReactContext reactContext) {
     super(reactContext);
@@ -212,6 +214,11 @@ public class ReactViewPager extends VerticalViewPager {
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
+    if (!mInitialPageWasSet) {
+      setCurrentItemFromJs(mInitialPage, false);
+      mInitialPageWasSet = true;
+    }
+
     // The viewpager reset an internal flag on this method so we need to run another layout pass
     // after attaching to window.
     this.requestLayout();
@@ -227,6 +234,10 @@ public class ReactViewPager extends VerticalViewPager {
       layout(getLeft(), getTop(), getRight(), getBottom());
     }
   };
+
+  /*package*/ void setInitialPage(int initialPage) {
+    mInitialPage = initialPage;
+  }
 
   /*package*/ void addViewToAdapter(View child, int index) {
     getAdapter().addView(child, index);

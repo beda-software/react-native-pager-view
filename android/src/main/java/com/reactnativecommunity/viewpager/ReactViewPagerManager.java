@@ -146,4 +146,8 @@ public class ReactViewPagerManager extends ViewGroupManager<ReactViewPager> {
         pager.setOffscreenPageLimit(offscreenPageLimit);
     }
 
+    @ReactProp(name = "initialPage")
+    public void setInitialPage(ReactViewPager pager, int initialPage) {
+        pager.setInitialPage(initialPage);
+    }
 }

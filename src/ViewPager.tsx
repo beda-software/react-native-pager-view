@@ -57,15 +57,6 @@ export class ViewPager extends React.Component<ViewPagerProps> {
   private isScrolling = false;
   private viewPager = React.createRef<typeof ViewpagerViewManager>();
 
-  componentDidMount() {
-    // On iOS we do it directly on the native side
-    if (Platform.OS === 'android') {
-      if (this.props.initialPage != null) {
-        this.setPageWithoutAnimation(this.props.initialPage);
-      }
-    }
-  }
-
   public getInnerViewNode = (): ReactElement => {
     return this.viewPager.current!.getInnerViewNode();
   };
